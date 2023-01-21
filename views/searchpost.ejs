@@ -381,10 +381,8 @@
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
         <script type="text/javascript">
             var sessionCreator = "";
-            var socket = io();
             var id = "";
             var activegc = [];
             var globalPostList = [];
@@ -681,7 +679,7 @@
 
         <div class="search-container">
             <div class="ui-widget">
-                <form action="/othersearchpost" method="get">
+                <form action="/searchpost" method="get">
                     <input type="text" placeholder="Search Hashtag..." name="searchP" id="searchP"></input>
                     <button type="submit" id="search-btn">
                         <i class="fa fa-search"></i>
