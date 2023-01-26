@@ -621,6 +621,16 @@ var recGetPosts = function (recUserTimepostList, recTempArr, counter, callback) 
     });
   }
 }
+
+
+var uploadImage = function (req, res) {
+  if (req.file != undefined) {
+    db.uploadImagePost(req.session.user, req.body.timepost, req.file, function (err, data) {
+      res.send(data);
+    })
+  }
+};
+
 var routes = {
   get_main: getMain,
   verifyUser: postVerifyUser,
@@ -653,7 +663,8 @@ var routes = {
   get_hashtagPostAjax: getHashtagPostAjax,
   post_newAccount: postNewAccount,
   post_deleteFollowing: postDeleteFollowing,
-  get_followerList: getFollowerList
+  get_followerList: getFollowerList,
+  post_uploadImage: uploadImage
 };
 
 module.exports = routes;

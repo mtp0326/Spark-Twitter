@@ -1,6 +1,11 @@
 var AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-1' });
 var db = new AWS.DynamoDB();
+var s3 = new AWS.S3();
+// const S3 = require('aws-sdk/clients/s3')
+
+
+
 
 //gets username input and returns the password (this is just for one column)
 var myDB_getPassword = function (searchTerm, callback) {
@@ -626,6 +631,34 @@ var myDB_deleteFollowing = function (username, following, callback) {
   });
 }
 
+var myDB_uploadImagePost = function(username, timepost, file, callback) {
+	var params = {
+		Bucket: 'spark-twitter-store',
+		Key: username,
+		Body: file.buffer
+	};
+	s3.putObject(params, function(err, data) {
+		var params2 = {
+        	TableName: "posts",
+          Key: {
+            'userID': {
+              S: username
+            },
+            'timepost': {
+              S: timepost
+            },
+          },
+			UpdateExpression: "set images = :a",
+			ExpressionAttributeValues: {
+            	":a": {BOOL: true}
+        	}
+		};
+		db.updateItem(params2, function(err2, data2){
+			callback(err, data);
+		});
+	});
+}
+
 var database = {
   passwordLookup: myDB_getPassword,
   usernameLookup: myDB_usernameLookup,
@@ -646,7 +679,8 @@ var database = {
   getFollowings: myDB_getFollowings,
   updateUser: myDB_updateUser,
   deleteFollower: myDB_deleteFollower,
-  deleteFollowing: myDB_deleteFollowing
+  deleteFollowing: myDB_deleteFollowing,
+  uploadImagePost: myDB_uploadImagePost
 
 };
 
