@@ -17,5 +17,5 @@
   1. Download the github code through this link.
     Github Link: https://github.com/mtp0326/Spark-Twitter
   2. Download Node.js
-  3. From the terminal, type "node app.js"
+  3. From the terminal, type "npm install" then "npm start"
   4. Open http://localhost:8080/ in your browser.
