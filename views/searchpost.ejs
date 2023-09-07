@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search Post</title>
+    <% if (check) { %>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            body {
+                height: 100%;
+                background-color: #ffffff;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: 600;
+            }
+
+
+
+            .like {
+                margin-top: 22px;
+                margin-left: 10px;
+            }
+
+            button[type=like] {
+
+                padding-top: 20px;
+                background-color: #ffffff;
+                color: #fff;
+                border-radius: 0px;
+                border: 0;
+                box-shadow: 0;
+                display: inline-block;
+            }
+
+            .wholeHome {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .likesection {
+                display: flex;
+                color: 000000;
+            }
+
+            .card {
+                border-radius: 20px;
+                width: 500px;
+                padding: 20px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 30px;
+                margin-top: 30px;
+                border-style: solid;
+                border-width: 2px;
+                border-color: rgb(189, 188, 188);
+                background-color: #ffffff;
+            }
+
+            .post {
+                border-radius: 10px;
+                width: 500px;
+                padding: 20px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 0px;
+                margin-top: 30px;
+                border-style: solid;
+                border-width: 2px;
+                border-color: rgb(189, 188, 188);
+            }
+
+            .comments {
+                border-radius: 10px;
+                width: 500px;
+                padding: 10px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 5px;
+                margin-top: 5px;
+                border-color: #d8d7d7;
+                border-style: solid;
+                border-width: 2px;
+                background-color: #ffffff;
+            }
+
+            /* post */
+            .userPost {
+                font-size: 20px;
+                padding-right: 10px;
+                padding-left: 10px;
+                padding-bottom: 10px;
+                display: inline-block;
+                color: #585858;
+            }
+
+            .time {
+                font-size: 10px;
+                display: inline-block;
+                color: #585858;
+            }
+
+            .twitterImg {
+                float: right;
+            }
+
+            .content {
+                border-radius: 10px;
+                width: 100%;
+                padding: 10px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 0px;
+                margin-top: 0px;
+                background-color: #ffffff;
+            }
+
+            .postedArea {
+                margin-left: 10px;
+                font-size: 20px;
+            }
+
+            .commentBarGrouped {
+                display: flex;
+                margin-left: auto;
+                margin-right: auto;
+                width: 500px;
+                margin-top: 10px;
+            }
+
+            .profile-pic {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+
+                object-fit: contain;
+                background-color: #E0E0E0;
+                display: inline-block;
+            }
+
+            .followerCount {
+                margin-left: 260px;
+                font-size: 15px;
+                display: inline-block;
+            }
+
+            @media screen and (max-width: 500px) {
+                .followerCount {
+                    margin-left: auto;
+                    margin-top: auto;
+                    font-size: 15px;
+                }
+            }
+
+            .profile-pic-nav {
+                float: left;
+                width: 40px;
+                height: 40px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                margin-left: 5px;
+                margin-right: 5px;
+                border-radius: 50%;
+                object-fit: contain;
+                background-color: #ffffff;
+                display: inline-block;
+            }
+
+            h2 {
+                font: Arial;
+                text-align: center;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            h3 {
+                display: inline-block;
+                padding-bottom: 0px;
+            }
+
+            h4 {
+                text-align: right;
+                display: inline-block;
+                margin-right: 5px;
+                padding-bottom: 10px;
+            }
+
+            textarea.posttext {
+                padding: 10px 10px;
+                border-radius: 10px;
+                box-sizing: border-box;
+                color: #000000;
+                border: 1px solid #F5F5F5;
+                font-size: 16px;
+                letter-spacing: 1px;
+                height: 150px;
+                width: 100%;
+            }
+
+            textarea.comment {
+                padding: 10px 0px;
+                border-radius: 10px;
+                box-sizing: border-box;
+                color: #585858;
+                border: 1px solid #0668E1;
+                font-size: 16px;
+                letter-spacing: 1px;
+                height: 40px !important;
+                width: 420px;
+                display: inline-block;
+            }
+
+            @media screen and (max-width: 500px) {
+                textarea.comment {
+                    padding: 10px 0px;
+                    border-radius: 10px;
+                    box-sizing: border-box;
+                    color: #585858;
+                    border: 1px solid #0668E1;
+                    font-size: 16px;
+                    letter-spacing: 1px;
+                    height: 40px !important;
+                    width: auto;
+                    display: inline-block;
+                }
+            }
+
+            textarea:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border: 1px solid #ffffff !important;
+                outline-width: 0 !important;
+            }
+
+            select {
+                border: none;
+                font-size: 15px;
+                background-color: #fff !important;
+            }
+
+            select:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                outline-width: 0 !important;
+            }
+
+            ::placeholder {
+                color: #BDBDBD;
+            }
+
+            :-ms-input-placeholder {
+                color: #BDBDBD;
+            }
+
+            ::-ms-input-placeholder {
+                color: #BDBDBD;
+            }
+
+            .btn-success {
+                border-radius: 50px;
+                padding: 4px 40px;
+            }
+
+            .options {
+                font-size: 23px;
+                color: #757575;
+                cursor: pointer;
+            }
+
+            .options:hover {
+                color: #000;
+            }
+
+            .topnav {
+                overflow: hidden;
+                background-color: #ffffff;
+            }
+
+            .topnav a {
+                float: left;
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+            .topnav a:hover {
+                background-color: #d1d1d1;
+                color: black;
+            }
+
+            .topnav a.active {
+                background-color: #0668E1;
+                color: rgb(255, 255, 255);
+            }
+
+            .topnav .search-container {
+                float: right;
+            }
+
+            .topnav input[type=text] {
+                padding: 6px;
+                margin-top: 8px;
+                font-size: 17px;
+                border: none;
+            }
+
+            .topnav .search-container button {
+                float: right;
+                padding: 6px 10px;
+                margin-top: 8px;
+                margin-right: 16px;
+                background: rgb(166, 166, 167);
+                font-size: 17px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .topnav .search-container button:hover {
+                background: rgb(148, 147, 147);
+            }
+
+            @media screen and (max-width: 600px) {
+                .topnav .search-container {
+                    float: none;
+                }
+
+                .topnav a,
+                .topnav input[type=text],
+                .topnav .search-container button {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                    width: 100%;
+                    margin: 0;
+                    padding: 14px;
+                }
+
+                .topnav input[type=text] {
+                    border: 1px solid #ccc;
+                }
+            }
+
+            button[type=comment] {
+                appearance: none;
+                -webkit-appearance: none;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-top: 20px;
+                text-align: top;
+                border: 0;
+                box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+                background-color: #0668E1;
+                color: #fff;
+                border-radius: 5px;
+                display: inline-block;
+            }
+
+            button[type=post] {
+                appearance: none;
+                -webkit-appearance: none;
+                float: right;
+                padding: 10px;
+                margin: 5px 0;
+                border: 0;
+                background-color: #0668E1;
+                color: #fff;
+                border-radius: 5px;
+            }
+        </style>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+        </script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <script type="text/javascript">
+            var sessionCreator = "";
+            var id = "";
+            var activegc = [];
+            var globalPostList = [];
+            var globalRequestList = [];
+            var globalFollowerList = [];
+            var globalOnlineList = [];
+            var globalRoomList = [];
+            var globalInviteList = [];
+            var INDEX = 0;
+            var hashtagSearched = "";
+
+            window.onload = function () {
+                const urlParams = new URLSearchParams(window.location.search); //?????
+                const searchPost = urlParams.get('searchP');
+                console.log("search results: ");
+                console.log(searchPost);
+                hashtagSearched = searchPost;
+                document.getElementById("searchResult").innerHTML = "Search Result: " + hashtagSearched;
+
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/searchPostAjax",
+                        data: {
+                            searchPost: hashtagSearched
+                        },
+                        success: function (result) {
+                            var pfpFinalnav =
+                                '<img class="profile-pic-nav"src="https://img.icons8.com/color/48/null/twitter--v1.png">';
+                            document.getElementById("navpicdiv").innerHTML = pfpFinalnav;
+                            getFollowersPosts();
+
+                        },
+                        error: function (result) {
+                            alert('error');
+                        }
+                    });
+
+                });
+            }
+
+            //calls ajax with /getList that retreives restaraut data from db
+            function getFollowersPosts() {
+                var followerposts = [];
+
+                $(document).ready(function () {
+
+                    $.getJSON('/getHashtagPostAjax', function (elementsArr) {
+                        for (let i = 0; i < elementsArr.length; i++) {
+                            var contentN = elementsArr[i].content;
+                            var userIDN = elementsArr[i].userID;
+                            var timepostN = elementsArr[i].timepost;
+                            var likesN = elementsArr[i].likes;
+                            var commentsN = elementsArr[i].comments;
+                            var postTypeN = elementsArr[i].postType;
+                            var likesCount = elementsArr[i].likes;
+                            var Item =
+                            {
+                                "content": contentN,
+                                "comments": commentsN,
+                                "likes": likesN,
+                                "userID": userIDN,
+                                "timepost": timepostN,
+                                "postType": postTypeN,
+                                "likesCount": likesCount
+                            };
+                            followerposts.push(Item);
+                            console.log(Item);
+
+                        }
+
+
+
+
+                        // A comparer used to determine if two entries are equal.
+                        const isSame = (a, b) =>
+                            a.userID === b.userID
+                            && a.timepost === b.timepost;
+
+                        // Get items that only occur in the left array,
+                        // using the compareFunction to determine equality.
+                        const onlyInLeft = (left, right, compareFunction) =>
+                            left.filter(leftValue =>
+                                !right.some(rightValue =>
+                                    compareFunction(leftValue, rightValue)));
+
+                        var difference = onlyInLeft(followerposts, globalPostList, isSame);
+
+                        for (let i = difference.length - 1; i >= 0; i--) {
+                            createPostDiv(difference[i]);
+                        };
+                        globalPostList = followerposts;
+                    });
+                });
+            }
+
+
+            function tagUsernames(availableTags) {
+                $(function () {
+                    $("#search").autocomplete({
+                        source: availableTags
+                    });
+                });
+            }
+
+            function tagHashpost(availableHashtag) {
+                $(function () {
+                    $("#searchP").autocomplete({
+                        source: availableHashtag
+                    });
+                });
+            }
+
+            function createPostDiv(followerpost) {
+                console.log(followerpost)
+
+                test_el = document.createElement('div');
+                var test = new Date(parseInt(followerpost.timepost));
+                var time = (new Date(test)).toLocaleDateString()
+                    +
+                    " "
+                    +
+                    (new Date(test)).toLocaleTimeString();
+                var likeID = "like-btn-" + followerpost.userID.split(" ").join("") + "-" + followerpost.timepost
+                var likeCount = "like-cnt-" + followerpost.userID.split(" ").join("") + "-" + followerpost.timepost
+                test_el.innerHTML =
+                    '<div id="wholeHome" class="wholeHome">'
+                    + '<div class="post"><div class= "userPost">'
+                    + followerpost.userID +
+                    '</div>' +
+                    '<div class="time" >'
+                    + time +
+                    '</div>' +
+                    '<div class="twitterImg"><img src="https://img.icons8.com/color/48/null/twitter--v1.png"/></div>'
+                    + '<div class="postedArea" >'
+                    + followerpost.content +
+                    '</div>' +
+                    '<div class = "likesection">'
+                    + '<button type="like"  id=' + likeID + '>'
+                    + ' <img src="https://img.icons8.com/material-outlined/24/null/hearts.png"/></button>' +
+                    '<div class="like" id =' + likeCount + '>' + followerpost.likesCount + '</div></div>'
+                    + '</div>'
+                    + '</div>'
+
+
+                var commentsArr = (followerpost.comments).map(obj => obj.S);
+                for (let i = 0; i < commentsArr.length; i++) {
+                    test_el.innerHTML +=
+                        '<div id="wholeHome" class="wholeHome">'
+                    '<div class="comments" >'
+                        + commentsArr[i] +
+                        '</div>'
+                        + '</div>'
+                }
+                var commentID = "comment-button-" + followerpost.userID.split(" ").join("") + "-" + followerpost.timepost;
+
+                var commentBarID = "comment-bar-" + followerpost.userID.split(" ").join("") + "-" + followerpost.timepost
+                var commentContent = "commentcontent-" + followerpost.userID.split(" ").join("") + "-" + followerpost.timepost
+                test_el.innerHTML +=
+                    '<div class="commentBarGrouped" id = ' + commentBarID + '><textarea class="comment" placeholder="comment..." name=' + commentContent + '></textarea>'
+                    +
+                    '<button type = "comment" id = ' + commentID + '>Comment</button></div>'
+                document.body.appendChild(test_el);
+                commentButtons(commentID, commentContent, followerpost.timepost, followerpost.userID, commentBarID, followerpost.postType);
+                likeButton(followerpost.userID, followerpost.postType, followerpost.timepost);
+            }
+            //need time post???
+
+            function likeButton(userID, postType, timepost) {
+                var hashlikeID = "#like-btn-" + userID.split(" ").join("") + "-" + timepost
+                var likeID = "like-btn-" + userID.split(" ").join("") + "-" + timepost
+                $(document).ready(function () {
+                    $(hashlikeID).click(function (e) {
+                        console.log("like clicked!");
+                        console.log(hashlikeID);
+                        e.preventDefault();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/addLikesToPost",
+                            data: {
+                                userID: userID,
+                                postType: postType,
+                                timepost: timepost
+                            },
+
+                            success: function (result) {
+                                console.log(result);
+                                var string = "like-cnt-" + userID.split(" ").join("") + "-" + timepost;
+
+                                document.getElementById(string).innerHTML = result.S;
+
+
+                            },
+                            error: function (result) {
+                                alert('accept follower error');
+                            }
+                        });
+                    });
+
+                });
+            }
+            function commentButtons(commentIDBefore, commentCon, time, postUserID, commentBarID, postType) {
+                $(document).ready(function () {
+                    commentID = "#" + commentIDBefore;
+                    $(commentID).click(function (e) {
+                        console.log("comment clicked!");
+                        e.preventDefault();
+                        var contentUpd = document.getElementsByName(commentCon)[0].value;
+                        document.getElementsByName(commentCon)[0].value = "";
+
+
+
+                        var contentWithUser = sessionCreator + ": " + contentUpd;
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/createcomment",
+                            data: {
+                                comment: contentWithUser,
+                                userID: postUserID,
+                                timepost: time, // EDIT THIS PART
+                                table: postType
+                            },
+                            success: function (result) {
+
+
+                                console.log(result);
+
+                                test_el = document.createElement('div');
+                                test_el.innerHTML +=
+                                    '<div class="comments" >'
+                                    + contentWithUser +
+                                    '</div>';
+                                document.body.appendChild(test_el);
+
+                                var cardDiv = document.getElementById(commentBarID);
+                                cardDiv.before(test_el);
+                                var commentBarWithHash = "#" + commentBarID;
+
+                                $(commentBarWithHash).val('');
+                            },
+                            error: function (result) {
+                                alert('create comment error');
+                            }
+                        });
+                    });
+                });
+            }
+
+            $(document).ready(function () {
+                $.getJSON('/getAllUsername', function (usernameArr) {
+                    var tagArr = usernameArr.map(obj => obj.username.S);
+                    tagUsernames(tagArr);
+                });
+            });
+
+            $(document).ready(function () {
+                $.getJSON('/getAllHashtags', function (hashtagsArr) {
+                    var tagArr = hashtagsArr.map(obj => obj.hashtagID.S);
+                    tagHashpost(tagArr);
+                });
+            });
+
+
+        </script>
+        <% } else { %>
+            <script>
+                alert("login required")
+            </script>
+            <meta http-equiv="refresh" content="1; url='/'" />
+            <% } %>
+</head>
+
+<body>
+    <div class="topnav">
+        <div id="navpicdiv">
+        </div>
+        <a href="/homepage">Home</a>
+        <a href="/profile">Profile</a>
+        <a href="/edit">Edit</a>
+        <a href="/logout">Logout</a>
+
+        <div class="search-container">
+            <div class="ui-widget">
+                <form action="/otherprofile" method="get">
+                    <input type="text" placeholder="Search User..." name="search" id="search"></input>
+                    <button type="submit" id="search-btn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <div class="ui-widget">
+                <form action="/searchpost" method="get">
+                    <input type="text" placeholder="Search Hashtag..." name="searchP" id="searchP"></input>
+                    <button type="submit" id="search-btn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <h2 id="searchResult">Search Result: </h2>
+    <!-- </div> -->
+
+</body>
+
+</html>
