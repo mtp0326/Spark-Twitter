@@ -552,6 +552,13 @@ var recUpdateUser = function (sessionUser, recUpdateInfoList, recUpdateInfoNameL
   }
 }
 
+//sign in info to the database
+var postUpdateProfilePicture = function (req, res) {
+  db.updateUser(req.username, req.pfp, 'pfpURL', function (err, data) {
+    return;
+  });
+}
+
 /* searchpost */
 
 //add the req.session.searchPost the hashtag that was searched
@@ -660,6 +667,7 @@ var routes = {
   post_newCommentAjax: postNewCommentAjax,
   post_updateUser: postUpdateUser,
   post_addLikesToPost: addLikesToPost,
+  post_updatePfp : postUpdateProfilePicture,
   get_hashtagPostAjax: getHashtagPostAjax,
   post_newAccount: postNewAccount,
   post_deleteFollowing: postDeleteFollowing,

@@ -70,12 +70,12 @@ app.get('/images/:key', (req, res) => {
 });
 
 app.post('/images', upload.single('profile-file'), async (req, res) => {
+   console.log("!!")
    const file = req.file
-   console.log(JSON.stringify(req.file))
+
    const result = await uploadImage(file)
    await unlinkFile(file.path)
-   console.log(result)
-   const description = req.body.description
+   routes.post_updatePfp({"username": req.session.username, "pfp" : result.Location})
    res.send({imagePath: `/images/${result.Key}`})
 });
 

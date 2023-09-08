@@ -16,6 +16,7 @@
       "express-session": "^1.17.3",
       "lru-cache": "*",
       "multer": "^1.4.5-lts.1",
+      "sharp": "^0.32.5",
       "sjcl": "^1.0.8",
       "socket.io": "^4.5.4",
       "uuid": "^9.0.0"

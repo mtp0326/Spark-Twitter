@@ -1,20 +1,14 @@
 var AWS = require('aws-sdk');
 require('dotenv').config();
 AWS.config.update({
-  // // region: process.env.REGION,
-  // accessKeyId: process.env.ACCESSKEY,
-  // secretAccessKey: process.env.SECRETACCESSKEY,
   region: 'us-east-1',
-  accessKeyId: 'AKIAWMMKJFFWE35XPYMF',
-  secretAccessKey: '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'
+  accessKeyId: process.env.ACCESSKEY,
+  secretAccessKey: process.env.SECRETACCESSKEY,
 });
 const fs = require('fs')
 var db = new AWS.DynamoDB();
-// var AWS = require('aws-sdk');
-// AWS.config.update({ region: 'us-east-1' });
-// var db = new AWS.DynamoDB();
 const S3 = require('aws-sdk/clients/s3')
-var s3 = new AWS.S3(); //?
+var s3 = new AWS.S3();
 
 //gets username input and returns the password (this is just for one column)
 var myDB_getPassword = function (searchTerm, callback) {
@@ -644,7 +638,7 @@ var myDB_deleteFollowing = function (username, following, callback) {
 //gets image from s3 bucket
 var myS3_getImage = function (fileKey)  {
   const downloadParams = {
-    Bucket: 'spark-twitter',
+    Bucket: process.env.AWS_BUCKET_NAME,
     Key: fileKey
   }
 
@@ -655,10 +649,13 @@ var myS3_getImage = function (fileKey)  {
 var myS3_uploadImage = function (file) {
   const fileStream = fs.createReadStream(file.path)
 
+  // const newStream = sharp(fileStream).resize({height: 1920, width: 1080, fit: "contain"})
+
   const uploadParams = {
-    Bucket: 'spark-twitter',
+    Bucket: process.env.AWS_BUCKET_NAME,
     Body: fileStream,
-    Key: file.filename
+    Key: file.filename,
+    ContentType: file.mimetype
   }
 
   return s3.upload(uploadParams).promise()
